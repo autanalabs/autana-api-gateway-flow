@@ -1,17 +1,28 @@
 [
     {
-        "id": "2105e876d9da3ccd",
-        "type": "tab",
-        "label": "example",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "21bb71fafaf0d583",
         "type": "subflow",
         "name": "API Gateway",
-        "info": "Before use API Gateway, first configure the rules sending a msg.payload with a JSON like this:\n\n{\n    \"GET\": {\n        \"/pets/\": {\n            \"actionId\": \"read all pets\"\n        },\n        \"/pets/:petId\": {\n            \"actionId\": \"read pet\"\n        }\n    },\n    \"POST\": {\n        \"/pets/\": {\n            \"actionId\": \"create pet\"\n        },\n        \"/pets/:petId\": {\n            \"actionId\": \"update pet\"\n        }\n    },\n    \"DELETE\": {\n        \"/pets/:petId\": {\n            \"actionId\": \"delete pet\"\n        }\n    }\n}\n\nThe output msg.req contains an autana object like this:\n\nmsg.req.autana:\n{\n    \"method\": \"POST\",\n    \"route\": \"/pets/:petId\",\n    \"url\": \"/pets/123\",\n    \"pathParams\": {\n        \"petId\": \"123\"\n    },\n    \"queryParams\": {},\n    \"action\": {\n        \"actionId\": \"update pet\"\n    }\n}\n\nThen You can take an action filtering by msg.req.autana.action.actionId\n\nYou can add more information to the action when configuring, if you wish.\n\nExample:\n\n{\n    \"GET\": {\n        \"/pets/\": {\n            \"actionId\": \"read all pets\",\n            \"anActionField\": \"foo\",\n            \"anotherActionField: \"bar\"\n        },\n        \"/pets/:petId\": {\n            \"actionId\": \"read pet\"\n        }\n    }\n}",
+        "info": "Before use API Gateway, first configure the rules sending 
+a msg.payload with a JSON like this:\n\n{\n    \"GET\": {\n        
+\"/pets/\": {\n            \"actionId\": \"read all pets\"\n        },\n        
+\"/pets/:petId\": {\n            \"actionId\": \"read pet\"\n        }\n    
+},\n    \"POST\": {\n        \"/pets/\": {\n            \"actionId\": 
+\"create pet\"\n        },\n        \"/pets/:petId\": {\n            
+\"actionId\": \"update pet\"\n        }\n    },\n    \"DELETE\": {\n        
+\"/pets/:petId\": {\n            \"actionId\": \"delete pet\"\n        }\n    
+}\n}\n\nThe output msg.req contains an autana object like 
+this:\n\nmsg.req.autana:\n{\n    \"method\": \"POST\",\n    \"route\": 
+\"/pets/:petId\",\n    \"url\": \"/pets/123\",\n    \"pathParams\": {\n        
+\"petId\": \"123\"\n    },\n    \"queryParams\": {},\n    \"action\": {\n        
+\"actionId\": \"update pet\"\n    }\n}\n\nThen You can take an action 
+filtering by msg.req.autana.action.actionId\n\nYou can add more 
+information to the action when configuring, if you 
+wish.\n\nExample:\n\n{\n    \"GET\": {\n        \"/pets/\": {\n            
+\"actionId\": \"read all pets\",\n            \"anActionField\": 
+\"foo\",\n            \"anotherActionField: \"bar\"\n        },\n        
+\"/pets/:petId\": {\n            \"actionId\": \"read pet\"\n        }\n    
+}\n}",
         "category": "network",
         "in": [
             {
@@ -357,7 +368,24 @@
         "type": "function",
         "z": "21bb71fafaf0d583",
         "name": "getPathParams",
-        "func": "function getPathParams(path, pattern) {\n    // Crear una expresión regular para detectar los parámetros\n    const paramRegex = /\\/:([^\\/]+)/g;\n\n    // Extraer los nombres de los parámetros\n    const paramNames = [...pattern.matchAll(paramRegex)].map(match => match[1]);\n\n    // Verificar si hay nombres de parámetros duplicados\n    const hasDuplicates = paramNames.length !== new Set(paramNames).size;\n    if (hasDuplicates) {\n        throw new Error(\"Nombres de parametros repetidos en el patron\");\n    }\n\n    // Reemplazar los parámetros en el patrón por una expresión regular\n    const patternRegex = new RegExp('^' + pattern.replace(paramRegex, '/([^/]+)') + '$');\n\n    // Comprobar si el path coincide con el patrón\n    const match = path.match(patternRegex);\n    if (!match) {\n        throw new Error(\"Path y patron no coinciden en formato\");\n    }\n\n    // Crear el objeto de parámetros\n    const params = {};\n    paramNames.forEach((param, i) => {\n        params[param] = match[i + 1];\n    });\n\n    return params;\n}\n\nconst path = msg.req.url;\nconst matchedPathPattern = msg.pattern;\n\nmsg.req.parsedParams = getPathParams(path, matchedPathPattern);\n\nreturn msg;",
+        "func": "function getPathParams(path, pattern) {\n    // Crear una 
+expresión regular para detectar los parámetros\n    const paramRegex = 
+/\\/:([^\\/]+)/g;\n\n    // Extraer los nombres de los parámetros\n    
+const paramNames = [...pattern.matchAll(paramRegex)].map(match => 
+match[1]);\n\n    // Verificar si hay nombres de parámetros duplicados\n    
+const hasDuplicates = paramNames.length !== new Set(paramNames).size;\n    
+if (hasDuplicates) {\n        throw new Error(\"Nombres de parametros 
+repetidos en el patron\");\n    }\n\n    // Reemplazar los parámetros en 
+el patrón por una expresión regular\n    const patternRegex = new 
+RegExp('^' + pattern.replace(paramRegex, '/([^/]+)') + '$');\n\n    // 
+Comprobar si el path coincide con el patrón\n    const match = 
+path.match(patternRegex);\n    if (!match) {\n        throw new 
+Error(\"Path y patron no coinciden en formato\");\n    }\n\n    // Crear 
+el objeto de parámetros\n    const params = {};\n    
+paramNames.forEach((param, i) => {\n        params[param] = match[i + 
+1];\n    });\n\n    return params;\n}\n\nconst path = msg.req.url;\nconst 
+matchedPathPattern = msg.pattern;\n\nmsg.req.parsedParams = 
+getPathParams(path, matchedPathPattern);\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -468,7 +496,15 @@
         "type": "function",
         "z": "21bb71fafaf0d583",
         "name": "isPathMatchingPattern",
-        "func": "function isPathMatchingPattern(path, pattern) {\n    // Crear una expresión regular para detectar los parámetros\n    const paramRegex = /\\/:([^\\/]+)/g;\n\n    // Reemplazar los parámetros en el patrón por una expresión regular\n    const patternRegex = new RegExp('^' + pattern.replace(paramRegex, '/([^/]+)') + '$');\n\n    // Comprobar si el path coincide con el patrón\n    const match = path.match(patternRegex);\n    return match != null;\n}\n\nconst path = msg.req.url;\nconst pattern = msg.pattern;\n\nmsg.paramsCanBeParsed = isPathMatchingPattern(path, pattern);\n\nreturn msg;",
+        "func": "function isPathMatchingPattern(path, pattern) {\n    // 
+Crear una expresión regular para detectar los parámetros\n    const 
+paramRegex = /\\/:([^\\/]+)/g;\n\n    // Reemplazar los parámetros en el 
+patrón por una expresión regular\n    const patternRegex = new RegExp('^' 
++ pattern.replace(paramRegex, '/([^/]+)') + '$');\n\n    // Comprobar si 
+el path coincide con el patrón\n    const match = 
+path.match(patternRegex);\n    return match != null;\n}\n\nconst path = 
+msg.req.url;\nconst pattern = msg.pattern;\n\nmsg.paramsCanBeParsed = 
+isPathMatchingPattern(path, pattern);\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -929,7 +965,10 @@
         "type": "function",
         "z": "21bb71fafaf0d583",
         "name": "add X-SuperPowered-By",
-        "func": "var msg = msg;\nif (msg.headers == null) {\n    msg.headers = {\n        \"X-SuperPowered-By\": \"Autana API Gateway\"\n    };\n} else {\n    msg.headers[\"X-SuperPowered-By\"] = \"Autana API Gateway\"\n}\nreturn msg;\n",
+        "func": "var msg = msg;\nif (msg.headers == null) {\n    
+msg.headers = {\n        \"X-SuperPowered-By\": \"Autana API Gateway\"\n    
+};\n} else {\n    msg.headers[\"X-SuperPowered-By\"] = \"Autana API 
+Gateway\"\n}\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -953,7 +992,9 @@
                 "t": "set",
                 "p": "req.autana",
                 "pt": "msg",
-                "to": "{\t    \"method\": method,\t    \"route\": pattern,\t    \"url\": req.url,\t    \"pathParams\": req.parsedParams,\t    \"queryParams\": req.query,\t    \"action\": req.action\t}",
+                "to": "{\t    \"method\": method,\t    \"route\": 
+pattern,\t    \"url\": req.url,\t    \"pathParams\": req.parsedParams,\t    
+\"queryParams\": req.query,\t    \"action\": req.action\t}",
                 "tot": "jsonata"
             },
             {
@@ -1036,6 +1077,14 @@
         ]
     },
     {
+        "id": "2105e876d9da3ccd",
+        "type": "tab",
+        "label": "example",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "7f4711439d6801a4",
         "type": "subflow:21bb71fafaf0d583",
         "z": "2105e876d9da3ccd",
@@ -1090,7 +1139,11 @@
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "{\"GET\":{\"/pets/\":{\"actionId\":\"read all pets\"},\"/pets/:petId\":{\"actionId\":\"read pet\"}},\"POST\":{\"/pets/\":{\"actionId\":\"create pet\"},\"/pets/:petId\":{\"actionId\":\"update pet\"}},\"DELETE\":{\"/pets/:petId\":{\"actionId\":\"delete pet\"}}}",
+        "payload": "{\"GET\":{\"/pets/\":{\"actionId\":\"read all 
+pets\"},\"/pets/:petId\":{\"actionId\":\"read 
+pet\"}},\"POST\":{\"/pets/\":{\"actionId\":\"create 
+pet\"},\"/pets/:petId\":{\"actionId\":\"update 
+pet\"}},\"DELETE\":{\"/pets/:petId\":{\"actionId\":\"delete pet\"}}}",
         "payloadType": "json",
         "x": 210,
         "y": 160,
