@@ -11,19 +11,48 @@
         "id": "21bb71fafaf0d583",
         "type": "subflow",
         "name": "API Gateway",
-        "info": "",
+        "info": "Before use API Gateway, first configure the rules sending a msg.payload with a JSON like this:\n\n{\n    \"GET\": {\n        \"/pets/\": {\n            \"actionId\": \"read all pets\"\n        },\n        \"/pets/:petId\": {\n            \"actionId\": \"read pet\"\n        }\n    },\n    \"POST\": {\n        \"/pets/\": {\n            \"actionId\": \"create pet\"\n        },\n        \"/pets/:petId\": {\n            \"actionId\": \"update pet\"\n        }\n    },\n    \"DELETE\": {\n        \"/pets/:petId\": {\n            \"actionId\": \"delete pet\"\n        }\n    }\n}\n\nThe output msg.req contains an autana object like this:\n\nmsg.req.autana:\n{\n    \"method\": \"POST\",\n    \"route\": \"/pets/:petId\",\n    \"url\": \"/pets/123\",\n    \"pathParams\": {\n        \"petId\": \"123\"\n    },\n    \"queryParams\": {},\n    \"action\": {\n        \"actionId\": \"update pet\"\n    }\n}\n\nThen You can take an action filtering by msg.req.autana.action.actionId\n\nYou can add more information to the action when configuring, if you wish.\n\nExample:\n\n{\n    \"GET\": {\n        \"/pets/\": {\n            \"actionId\": \"read all pets\",\n            \"anActionField\": \"foo\",\n            \"anotherActionField: \"bar\"\n        },\n        \"/pets/:petId\": {\n            \"actionId\": \"read pet\"\n        }\n    }\n}",
         "category": "network",
-        "in": [],
+        "in": [
+            {
+                "x": 220,
+                "y": 1920,
+                "wires": [
+                    {
+                        "id": "0edd344a21511892"
+                    }
+                ]
+            }
+        ],
         "out": [
             {
-                "x": 880,
-                "y": 1380,
-                "wires": []
+                "x": 410,
+                "y": 1320,
+                "wires": [
+                    {
+                        "id": "ce80cd4f1eee9dc8",
+                        "port": 0
+                    }
+                ]
             }
         ],
         "env": [],
-        "meta": {},
+        "meta": {
+            "module": "autana-api-gateway",
+            "type": "com.autanalabs.apiGateway",
+            "version": "1.0.0",
+            "author": "GiBi <gb@autanalabs.com>",
+            "desc": "Rest API Gateway based on JSON rules",
+            "keywords": "node-red, autana, rest, api, apigateway, http",
+            "license": "Apache-2.0"
+        },
         "color": "#D7D7A0",
+        "inputLabels": [
+            "configuration rules"
+        ],
+        "outputLabels": [
+            "api-gateway http request"
+        ],
         "icon": "font-awesome/fa-globe"
     },
     {
@@ -42,17 +71,6 @@
                 "fee9c9a538a03ca7"
             ]
         ]
-    },
-    {
-        "id": "987363d1df41655c",
-        "type": "http response",
-        "z": "21bb71fafaf0d583",
-        "name": "http response",
-        "statusCode": "",
-        "headers": {},
-        "x": 380,
-        "y": 1320,
-        "wires": []
     },
     {
         "id": "0aaaa80add2b291e",
@@ -978,91 +996,25 @@
         "y": 1240,
         "wires": [
             [
-                "987363d1df41655c",
                 "332a68e4d82c82a5"
             ]
         ]
     },
     {
-        "id": "7f4711439d6801a4",
-        "type": "subflow:21bb71fafaf0d583",
-        "z": "2105e876d9da3ccd",
-        "x": 150,
-        "y": 80,
-        "wires": [
-            []
-        ]
+        "id": "c656019334ca5acb",
+        "type": "comment",
+        "z": "21bb71fafaf0d583",
+        "name": "Input Configuration",
+        "info": "",
+        "x": 250,
+        "y": 1860,
+        "wires": []
     },
     {
-        "id": "d78026e65f84b4ab",
-        "type": "json",
-        "z": "2105e876d9da3ccd",
-        "name": "parse rules",
-        "property": "payload",
-        "action": "",
-        "pretty": false,
-        "x": 550,
-        "y": 240,
-        "wires": [
-            [
-                "8711d1c2e6cd4f54"
-            ]
-        ]
-    },
-    {
-        "id": "42d74165f18bf7a9",
-        "type": "file in",
-        "z": "2105e876d9da3ccd",
-        "name": "read rules",
-        "filename": "/Users/gibi/workspaces/autana/api_gateway/rules.json",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 380,
-        "y": 240,
-        "wires": [
-            [
-                "d78026e65f84b4ab"
-            ]
-        ]
-    },
-    {
-        "id": "0944f8f65c91983e",
-        "type": "inject",
-        "z": "2105e876d9da3ccd",
-        "name": "autorun",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 220,
-        "y": 240,
-        "wires": [
-            [
-                "42d74165f18bf7a9"
-            ]
-        ]
-    },
-    {
-        "id": "8711d1c2e6cd4f54",
+        "id": "0edd344a21511892",
         "type": "change",
-        "z": "2105e876d9da3ccd",
-        "name": "store rules",
+        "z": "21bb71fafaf0d583",
+        "name": "",
         "rules": [
             {
                 "t": "set",
@@ -1077,132 +1029,23 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 730,
-        "y": 240,
-        "wires": [
-            [
-                "d280186a25c6a36e"
-            ]
-        ]
-    },
-    {
-        "id": "84e02542df72e4f9",
-        "type": "catch",
-        "z": "2105e876d9da3ccd",
-        "name": "catch on read rules",
-        "scope": [
-            "42d74165f18bf7a9",
-            "8711d1c2e6cd4f54",
-            "d78026e65f84b4ab"
-        ],
-        "uncaught": false,
-        "x": 230,
-        "y": 300,
-        "wires": [
-            [
-                "86c4d725e2b07e6b"
-            ]
-        ]
-    },
-    {
-        "id": "86c4d725e2b07e6b",
-        "type": "debug",
-        "z": "2105e876d9da3ccd",
-        "name": "RULE ERROR",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 440,
-        "y": 300,
-        "wires": []
-    },
-    {
-        "id": "b06efe94df8434fa",
-        "type": "comment",
-        "z": "2105e876d9da3ccd",
-        "name": "load Http Rules",
-        "info": "",
-        "x": 160,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "4680d198e334f832",
-        "type": "inject",
-        "z": "2105e876d9da3ccd",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 220,
-        "y": 360,
-        "wires": [
-            [
-                "5ca8a36d98dc9bcf"
-            ]
-        ]
-    },
-    {
-        "id": "5ca8a36d98dc9bcf",
-        "type": "change",
-        "z": "2105e876d9da3ccd",
-        "name": "read rules",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "http_rules",
-                "tot": "global"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
         "x": 380,
-        "y": 360,
+        "y": 1920,
         "wires": [
-            [
-                "4ab16e5e0a8d3816"
-            ]
+            []
         ]
     },
     {
-        "id": "4ab16e5e0a8d3816",
-        "type": "debug",
+        "id": "7f4711439d6801a4",
+        "type": "subflow:21bb71fafaf0d583",
         "z": "2105e876d9da3ccd",
-        "name": "rules",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 530,
-        "y": 360,
-        "wires": []
+        "x": 390,
+        "y": 160,
+        "wires": [
+            [
+                "987363d1df41655c"
+            ]
+        ]
     },
     {
         "id": "d280186a25c6a36e",
@@ -1218,7 +1061,53 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 830,
-        "y": 300,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "987363d1df41655c",
+        "type": "http response",
+        "z": "2105e876d9da3ccd",
+        "name": "http response",
+        "statusCode": "",
+        "headers": {},
+        "x": 420,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "2975da337a9b547f",
+        "type": "inject",
+        "z": "2105e876d9da3ccd",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"GET\":{\"/pets/\":{\"actionId\":\"read all pets\"},\"/pets/:petId\":{\"actionId\":\"read pet\"}},\"POST\":{\"/pets/\":{\"actionId\":\"create pet\"},\"/pets/:petId\":{\"actionId\":\"update pet\"}},\"DELETE\":{\"/pets/:petId\":{\"actionId\":\"delete pet\"}}}",
+        "payloadType": "json",
+        "x": 210,
+        "y": 160,
+        "wires": [
+            [
+                "7f4711439d6801a4"
+            ]
+        ]
+    },
+    {
+        "id": "da66c1f8d9873464",
+        "type": "comment",
+        "z": "2105e876d9da3ccd",
+        "name": "load Http Rules from msg",
+        "info": "",
+        "x": 190,
+        "y": 100,
         "wires": []
     }
 ]
