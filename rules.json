@@ -1,0 +1,10 @@
+{
+  "GET": {
+    "/pets/": {
+      "actionId": "read all pets"
+    },
+    "/pets/:petId": {
+      "actionId": "read pet"
+    }
+  }
+}
