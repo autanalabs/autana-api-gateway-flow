@@ -14,7 +14,13 @@
         "info": "",
         "category": "network",
         "in": [],
-        "out": [],
+        "out": [
+            {
+                "x": 880,
+                "y": 1380,
+                "wires": []
+            }
+        ],
         "env": [],
         "meta": {},
         "color": "#D7D7A0",
@@ -44,8 +50,8 @@
         "name": "http response",
         "statusCode": "",
         "headers": {},
-        "x": 680,
-        "y": 1080,
+        "x": 380,
+        "y": 1320,
         "wires": []
     },
     {
@@ -124,7 +130,7 @@
         "scope": null,
         "uncaught": false,
         "x": 280,
-        "y": 1160,
+        "y": 1600,
         "wires": [
             [
                 "53e604e8718cb944",
@@ -157,7 +163,7 @@
         "to": "",
         "reg": false,
         "x": 450,
-        "y": 1160,
+        "y": 1600,
         "wires": [
             [
                 "4423ac8b56223d0c"
@@ -174,7 +180,7 @@
             "6dc69ec0ea99ea75"
         ],
         "x": 575,
-        "y": 1160,
+        "y": 1600,
         "wires": []
     },
     {
@@ -188,10 +194,10 @@
             "24b6d15d5fd02ae1"
         ],
         "x": 235,
-        "y": 1020,
+        "y": 1160,
         "wires": [
             [
-                "deb893f243648ddf"
+                "b3c88e760813461a"
             ]
         ]
     },
@@ -220,7 +226,6 @@
         "y": 620,
         "wires": [
             [
-                "332a68e4d82c82a5",
                 "24c114deb6f66f56"
             ]
         ]
@@ -238,8 +243,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 380,
-        "y": 680,
+        "x": 640,
+        "y": 1240,
         "wires": []
     },
     {
@@ -306,7 +311,7 @@
         "name": "send response",
         "info": "",
         "x": 240,
-        "y": 960,
+        "y": 1100,
         "wires": []
     },
     {
@@ -316,16 +321,16 @@
         "name": "Exception handling",
         "info": "",
         "x": 250,
-        "y": 1100,
+        "y": 1540,
         "wires": []
     },
     {
         "id": "ecdb7de26680c173",
         "type": "comment",
         "z": "21bb71fafaf0d583",
-        "name": "Default response",
+        "name": "OK",
         "info": "",
-        "x": 240,
+        "x": 210,
         "y": 560,
         "wires": []
     },
@@ -340,7 +345,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 980,
+        "x": 1080,
         "y": 640,
         "wires": [
             [
@@ -355,7 +360,7 @@
         "z": "21bb71fafaf0d583",
         "name": "pre-process",
         "info": "",
-        "x": 770,
+        "x": 870,
         "y": 80,
         "wires": []
     },
@@ -368,8 +373,8 @@
         "links": [
             "8c84bece8037e906"
         ],
-        "x": 1365,
-        "y": 1020,
+        "x": 1435,
+        "y": 920,
         "wires": []
     },
     {
@@ -380,7 +385,7 @@
         "links": [
             "fee9c9a538a03ca7"
         ],
-        "x": 755,
+        "x": 855,
         "y": 140,
         "wires": [
             [
@@ -402,7 +407,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1140,
+        "x": 1240,
         "y": 140,
         "wires": []
     },
@@ -419,7 +424,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 970,
+        "x": 1070,
         "y": 760,
         "wires": []
     },
@@ -437,7 +442,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 440,
-        "y": 1240,
+        "y": 1680,
         "wires": []
     },
     {
@@ -451,7 +456,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1000,
+        "x": 1100,
         "y": 520,
         "wires": [
             [
@@ -492,7 +497,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 880,
+        "x": 980,
         "y": 220,
         "wires": [
             [
@@ -514,7 +519,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1090,
+        "x": 1190,
         "y": 220,
         "wires": []
     },
@@ -529,7 +534,7 @@
         "arraySpltType": "len",
         "stream": false,
         "addname": "pattern",
-        "x": 850,
+        "x": 950,
         "y": 420,
         "wires": [
             [
@@ -551,7 +556,7 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1090,
+        "x": 1190,
         "y": 420,
         "wires": []
     },
@@ -571,7 +576,7 @@
         "timeout": "",
         "count": "",
         "reduceRight": false,
-        "x": 920,
+        "x": 960,
         "y": 960,
         "wires": [
             [
@@ -597,35 +602,16 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 1000,
+        "x": 1100,
         "y": 580,
         "wires": [
             [
-                "7c71fd36203bbb00",
-                "21f68644130bc4ef"
+                "7c71fd36203bbb00"
             ],
             [
-                "66639612e9db0bba",
-                "fb4d97c27257f35c"
+                "66639612e9db0bba"
             ]
         ]
-    },
-    {
-        "id": "d5d9aed99625290e",
-        "type": "debug",
-        "z": "21bb71fafaf0d583",
-        "name": "req",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "req",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 330,
-        "y": 900,
-        "wires": []
     },
     {
         "id": "55811cfa2f38e68d",
@@ -708,7 +694,7 @@
         "links": [
             "61125ddf884368b4"
         ],
-        "x": 1265,
+        "x": 1365,
         "y": 320,
         "wires": []
     },
@@ -721,7 +707,7 @@
         "links": [
             "c6b8d8a36dc05b63"
         ],
-        "x": 1135,
+        "x": 1235,
         "y": 640,
         "wires": []
     },
@@ -734,7 +720,7 @@
             "d7e905e47c8459db",
             "66639612e9db0bba"
         ],
-        "x": 815,
+        "x": 855,
         "y": 960,
         "wires": [
             [
@@ -748,7 +734,7 @@
         "z": "21bb71fafaf0d583",
         "name": "404",
         "info": "",
-        "x": 1350,
+        "x": 1450,
         "y": 320,
         "wires": []
     },
@@ -761,42 +747,8 @@
         "links": [
             "c6b8d8a36dc05b63"
         ],
-        "x": 1195,
+        "x": 1295,
         "y": 580,
-        "wires": []
-    },
-    {
-        "id": "21f68644130bc4ef",
-        "type": "debug",
-        "z": "21bb71fafaf0d583",
-        "name": "can be parsed",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1320,
-        "y": 520,
-        "wires": []
-    },
-    {
-        "id": "fb4d97c27257f35c",
-        "type": "debug",
-        "z": "21bb71fafaf0d583",
-        "name": "can't be parsed",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1320,
-        "y": 620,
         "wires": []
     },
     {
@@ -818,7 +770,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 990,
+        "x": 1090,
         "y": 700,
         "wires": [
             [
@@ -844,8 +796,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 980,
-        "y": 1020,
+        "x": 1000,
+        "y": 1040,
         "wires": [
             [
                 "a99658442ce47e83"
@@ -864,7 +816,7 @@
         "links": [
             "61125ddf884368b4"
         ],
-        "x": 1105,
+        "x": 1175,
         "y": 1080,
         "wires": []
     },
@@ -874,7 +826,7 @@
         "z": "21bb71fafaf0d583",
         "name": "404",
         "info": "",
-        "x": 1190,
+        "x": 1270,
         "y": 1080,
         "wires": []
     },
@@ -884,8 +836,8 @@
         "z": "21bb71fafaf0d583",
         "name": "200",
         "info": "",
-        "x": 1450,
-        "y": 1020,
+        "x": 1530,
+        "y": 920,
         "wires": []
     },
     {
@@ -906,7 +858,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 900,
+        "x": 1000,
         "y": 320,
         "wires": [
             [
@@ -946,7 +898,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1230,
+        "x": 1270,
         "y": 960,
         "wires": [
             [
@@ -955,17 +907,66 @@
         ]
     },
     {
-        "id": "deb893f243648ddf",
+        "id": "b3c88e760813461a",
+        "type": "function",
+        "z": "21bb71fafaf0d583",
+        "name": "add X-SuperPowered-By",
+        "func": "var msg = msg;\nif (msg.headers == null) {\n    msg.headers = {\n        \"X-SuperPowered-By\": \"Autana API Gateway\"\n    };\n} else {\n    msg.headers[\"X-SuperPowered-By\"] = \"Autana API Gateway\"\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 1160,
+        "wires": [
+            [
+                "ce80cd4f1eee9dc8"
+            ]
+        ]
+    },
+    {
+        "id": "ce80cd4f1eee9dc8",
         "type": "change",
         "z": "21bb71fafaf0d583",
-        "name": "add X-SuperPowered-By header",
+        "name": "cleanUp",
         "rules": [
             {
                 "t": "set",
-                "p": "x-header",
+                "p": "req.autana",
                 "pt": "msg",
-                "to": "{\"X-SuperPowered-By\":\"Autana API Gateway\"}",
-                "tot": "json"
+                "to": "{\t    \"method\": method,\t    \"route\": pattern,\t    \"url\": req.url,\t    \"pathParams\": req.parsedParams,\t    \"queryParams\": req.query,\t    \"action\": req.action\t}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "delete",
+                "p": "rules",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "method",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "pattern",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "paramsCanBeParsed",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "req.parsedParams",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "req.action",
+                "pt": "msg"
             }
         ],
         "action": "",
@@ -973,30 +974,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 440,
-        "y": 1020,
+        "x": 360,
+        "y": 1240,
         "wires": [
             [
-                "b3c88e760813461a"
-            ]
-        ]
-    },
-    {
-        "id": "b3c88e760813461a",
-        "type": "function",
-        "z": "21bb71fafaf0d583",
-        "name": "function 1",
-        "func": "var msg = msg;\nif (msg.headers == null) {\n    msg.headers = {\n        \"X-SuperPowered-By\": \"Autana API Gateway\"\n    };\n} else {\n    msg.headers[\"X-SuperPowered-By\"] = \"Autana API Gateway\"\n}\nreturn msg;\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 520,
-        "y": 1080,
-        "wires": [
-            [
-                "987363d1df41655c"
+                "987363d1df41655c",
+                "332a68e4d82c82a5"
             ]
         ]
     },
@@ -1006,7 +989,9 @@
         "z": "2105e876d9da3ccd",
         "x": 150,
         "y": 80,
-        "wires": []
+        "wires": [
+            []
+        ]
     },
     {
         "id": "d78026e65f84b4ab",
