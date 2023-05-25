@@ -8,13 +8,6 @@
         "env": []
     },
     {
-        "id": "c07daa283a6963bb",
-        "type": "key-value-store",
-        "filepath": "rules.json",
-        "namespace": "",
-        "name": ""
-    },
-    {
         "id": "58688987007c2b30",
         "type": "http in",
         "z": "2105e876d9da3ccd",
@@ -38,8 +31,8 @@
         "name": "http response",
         "statusCode": "",
         "headers": {},
-        "x": 260,
-        "y": 1100,
+        "x": 500,
+        "y": 1160,
         "wires": []
     },
     {
@@ -185,7 +178,7 @@
         "y": 1100,
         "wires": [
             [
-                "987363d1df41655c"
+                "deb893f243648ddf"
             ]
         ]
     },
@@ -335,7 +328,7 @@
         "finalize": "",
         "libs": [],
         "x": 840,
-        "y": 560,
+        "y": 720,
         "wires": [
             [
                 "d7e905e47c8459db",
@@ -363,8 +356,8 @@
             "8c84bece8037e906",
             "30d5d79159cb938c"
         ],
-        "x": 965,
-        "y": 800,
+        "x": 1225,
+        "y": 1100,
         "wires": []
     },
     {
@@ -389,7 +382,7 @@
         "type": "debug",
         "z": "2105e876d9da3ccd",
         "name": "req",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -415,7 +408,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 830,
-        "y": 680,
+        "y": 840,
         "wires": []
     },
     {
@@ -447,7 +440,7 @@
         "finalize": "",
         "libs": [],
         "x": 860,
-        "y": 440,
+        "y": 600,
         "wires": [
             [
                 "f7b9836be8449c8c"
@@ -720,7 +713,7 @@
         "wires": [
             [
                 "1b856a5e9c292190",
-                "2cbeda31acd0ee4f"
+                "d4b04fb22d3f0d8b"
             ]
         ]
     },
@@ -729,7 +722,7 @@
         "type": "debug",
         "z": "2105e876d9da3ccd",
         "name": "req",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -752,8 +745,8 @@
         "arraySpltType": "len",
         "stream": false,
         "addname": "pattern",
-        "x": 730,
-        "y": 380,
+        "x": 710,
+        "y": 500,
         "wires": [
             [
                 "eae271d73aa6dd76",
@@ -775,7 +768,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 950,
-        "y": 380,
+        "y": 500,
         "wires": []
     },
     {
@@ -795,7 +788,7 @@
         "count": "",
         "reduceRight": false,
         "x": 780,
-        "y": 800,
+        "y": 1040,
         "wires": [
             [
                 "abea27fd4910f654"
@@ -821,7 +814,7 @@
         "repair": false,
         "outputs": 2,
         "x": 860,
-        "y": 500,
+        "y": 660,
         "wires": [
             [
                 "7c71fd36203bbb00",
@@ -931,8 +924,8 @@
         "links": [
             "61125ddf884368b4"
         ],
-        "x": 1185,
-        "y": 360,
+        "x": 1125,
+        "y": 400,
         "wires": []
     },
     {
@@ -945,7 +938,7 @@
             "c6b8d8a36dc05b63"
         ],
         "x": 995,
-        "y": 560,
+        "y": 720,
         "wires": []
     },
     {
@@ -958,7 +951,7 @@
             "66639612e9db0bba"
         ],
         "x": 675,
-        "y": 800,
+        "y": 1040,
         "wires": [
             [
                 "97ec91da3cb74822"
@@ -972,7 +965,7 @@
         "name": "404",
         "info": "",
         "x": 1210,
-        "y": 320,
+        "y": 400,
         "wires": []
     },
     {
@@ -985,7 +978,7 @@
             "c6b8d8a36dc05b63"
         ],
         "x": 1055,
-        "y": 500,
+        "y": 660,
         "wires": []
     },
     {
@@ -1002,7 +995,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1180,
-        "y": 440,
+        "y": 600,
         "wires": []
     },
     {
@@ -1019,7 +1012,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1180,
-        "y": 520,
+        "y": 700,
         "wires": []
     },
     {
@@ -1042,7 +1035,7 @@
         "to": "",
         "reg": false,
         "x": 850,
-        "y": 620,
+        "y": 780,
         "wires": [
             [
                 "4979c9081d75a341"
@@ -1068,10 +1061,10 @@
         "repair": false,
         "outputs": 2,
         "x": 840,
-        "y": 860,
+        "y": 1100,
         "wires": [
             [
-                "910355357ef7182b"
+                "a99658442ce47e83"
             ],
             [
                 "378914556a94d67c"
@@ -1088,7 +1081,7 @@
             "61125ddf884368b4"
         ],
         "x": 965,
-        "y": 900,
+        "y": 1160,
         "wires": []
     },
     {
@@ -1098,7 +1091,7 @@
         "name": "404",
         "info": "",
         "x": 1050,
-        "y": 900,
+        "y": 1160,
         "wires": []
     },
     {
@@ -1107,8 +1100,101 @@
         "z": "2105e876d9da3ccd",
         "name": "200",
         "info": "",
-        "x": 1050,
-        "y": 800,
+        "x": 1310,
+        "y": 1100,
         "wires": []
+    },
+    {
+        "id": "d4b04fb22d3f0d8b",
+        "type": "switch",
+        "z": "2105e876d9da3ccd",
+        "name": "there are rules by method ?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 760,
+        "y": 400,
+        "wires": [
+            [
+                "2cbeda31acd0ee4f"
+            ],
+            [
+                "44187f8078307871"
+            ]
+        ]
+    },
+    {
+        "id": "455b5fb7177e168a",
+        "type": "comment",
+        "z": "2105e876d9da3ccd",
+        "name": "post-process",
+        "info": "",
+        "x": 730,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "a99658442ce47e83",
+        "type": "change",
+        "z": "2105e876d9da3ccd",
+        "name": "add X-Action_Id header",
+        "rules": [
+            {
+                "t": "set",
+                "p": "headers",
+                "pt": "msg",
+                "to": "{ \"X-Action_Id\": req.action.actionId }",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1090,
+        "y": 1040,
+        "wires": [
+            [
+                "910355357ef7182b"
+            ]
+        ]
+    },
+    {
+        "id": "deb893f243648ddf",
+        "type": "change",
+        "z": "2105e876d9da3ccd",
+        "name": "add X-SuperPowered-By header",
+        "rules": [
+            {
+                "t": "set",
+                "p": "headers",
+                "pt": "msg",
+                "to": "{\"X-SuperPowered-By\":\"Autana API Gateway\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 1100,
+        "wires": [
+            [
+                "987363d1df41655c"
+            ]
+        ]
     }
 ]

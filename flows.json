@@ -8,13 +8,6 @@
         "env": []
     },
     {
-        "id": "c07daa283a6963bb",
-        "type": "key-value-store",
-        "filepath": "rules.json",
-        "namespace": "",
-        "name": ""
-    },
-    {
         "id": "58688987007c2b30",
         "type": "http in",
         "z": "2105e876d9da3ccd",
@@ -38,8 +31,8 @@
         "name": "http response",
         "statusCode": "",
         "headers": {},
-        "x": 260,
-        "y": 1100,
+        "x": 540,
+        "y": 1160,
         "wires": []
     },
     {
@@ -185,7 +178,7 @@
         "y": 1100,
         "wires": [
             [
-                "987363d1df41655c"
+                "deb893f243648ddf"
             ]
         ]
     },
@@ -363,8 +356,8 @@
             "8c84bece8037e906",
             "30d5d79159cb938c"
         ],
-        "x": 965,
-        "y": 940,
+        "x": 1225,
+        "y": 1100,
         "wires": []
     },
     {
@@ -389,7 +382,7 @@
         "type": "debug",
         "z": "2105e876d9da3ccd",
         "name": "req",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -729,7 +722,7 @@
         "type": "debug",
         "z": "2105e876d9da3ccd",
         "name": "req",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -752,7 +745,7 @@
         "arraySpltType": "len",
         "stream": false,
         "addname": "pattern",
-        "x": 730,
+        "x": 710,
         "y": 500,
         "wires": [
             [
@@ -795,7 +788,7 @@
         "count": "",
         "reduceRight": false,
         "x": 780,
-        "y": 940,
+        "y": 1040,
         "wires": [
             [
                 "abea27fd4910f654"
@@ -958,7 +951,7 @@
             "66639612e9db0bba"
         ],
         "x": 675,
-        "y": 940,
+        "y": 1040,
         "wires": [
             [
                 "97ec91da3cb74822"
@@ -1019,7 +1012,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1180,
-        "y": 680,
+        "y": 700,
         "wires": []
     },
     {
@@ -1068,10 +1061,10 @@
         "repair": false,
         "outputs": 2,
         "x": 840,
-        "y": 1000,
+        "y": 1100,
         "wires": [
             [
-                "910355357ef7182b"
+                "a99658442ce47e83"
             ],
             [
                 "378914556a94d67c"
@@ -1088,7 +1081,7 @@
             "61125ddf884368b4"
         ],
         "x": 965,
-        "y": 1040,
+        "y": 1160,
         "wires": []
     },
     {
@@ -1098,7 +1091,7 @@
         "name": "404",
         "info": "",
         "x": 1050,
-        "y": 1040,
+        "y": 1160,
         "wires": []
     },
     {
@@ -1107,8 +1100,8 @@
         "z": "2105e876d9da3ccd",
         "name": "200",
         "info": "",
-        "x": 1050,
-        "y": 940,
+        "x": 1310,
+        "y": 1100,
         "wires": []
     },
     {
@@ -1129,7 +1122,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 2,
-        "x": 820,
+        "x": 760,
         "y": 400,
         "wires": [
             [
@@ -1137,6 +1130,89 @@
             ],
             [
                 "44187f8078307871"
+            ]
+        ]
+    },
+    {
+        "id": "455b5fb7177e168a",
+        "type": "comment",
+        "z": "2105e876d9da3ccd",
+        "name": "post-process",
+        "info": "",
+        "x": 730,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "a99658442ce47e83",
+        "type": "change",
+        "z": "2105e876d9da3ccd",
+        "name": "add X-Action_Id header",
+        "rules": [
+            {
+                "t": "set",
+                "p": "headers",
+                "pt": "msg",
+                "to": "{ \"X-Action_Id\": req.action.actionId }",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1090,
+        "y": 1040,
+        "wires": [
+            [
+                "910355357ef7182b"
+            ]
+        ]
+    },
+    {
+        "id": "deb893f243648ddf",
+        "type": "change",
+        "z": "2105e876d9da3ccd",
+        "name": "add X-SuperPowered-By header",
+        "rules": [
+            {
+                "t": "set",
+                "p": "x-header",
+                "pt": "msg",
+                "to": "{\"X-SuperPowered-By\":\"Autana API Gateway\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 1100,
+        "wires": [
+            [
+                "b3c88e760813461a"
+            ]
+        ]
+    },
+    {
+        "id": "b3c88e760813461a",
+        "type": "function",
+        "z": "2105e876d9da3ccd",
+        "name": "function 1",
+        "func": "var msg = msg;\nif (msg.headers == null) {\n    msg.headers = {\n        \"X-SuperPowered-By\": \"Autana API Gateway\"\n    };\n} else {\n    msg.headers[\"X-SuperPowered-By\"] = \"Autana API Gateway\"\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 1160,
+        "wires": [
+            [
+                "987363d1df41655c"
             ]
         ]
     }
