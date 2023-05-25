@@ -39,7 +39,7 @@
         "statusCode": "",
         "headers": {},
         "x": 260,
-        "y": 900,
+        "y": 1100,
         "wires": []
     },
     {
@@ -118,7 +118,7 @@
         "scope": null,
         "uncaught": false,
         "x": 140,
-        "y": 1040,
+        "y": 1240,
         "wires": [
             [
                 "53e604e8718cb944",
@@ -151,7 +151,7 @@
         "to": "",
         "reg": false,
         "x": 310,
-        "y": 1040,
+        "y": 1240,
         "wires": [
             [
                 "4423ac8b56223d0c"
@@ -168,7 +168,7 @@
             "6dc69ec0ea99ea75"
         ],
         "x": 435,
-        "y": 1040,
+        "y": 1240,
         "wires": []
     },
     {
@@ -178,10 +178,11 @@
         "name": "link in 1",
         "links": [
             "4423ac8b56223d0c",
-            "3e0f0d4c8e5d1337"
+            "3e0f0d4c8e5d1337",
+            "24b6d15d5fd02ae1"
         ],
         "x": 95,
-        "y": 900,
+        "y": 1100,
         "wires": [
             [
                 "987363d1df41655c"
@@ -210,7 +211,7 @@
             "910355357ef7182b"
         ],
         "x": 95,
-        "y": 620,
+        "y": 700,
         "wires": [
             [
                 "332a68e4d82c82a5",
@@ -222,17 +223,17 @@
         "id": "332a68e4d82c82a5",
         "type": "debug",
         "z": "2105e876d9da3ccd",
-        "name": "req",
+        "name": "res",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "req",
-        "targetType": "msg",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
         "x": 190,
-        "y": 680,
+        "y": 760,
         "wires": []
     },
     {
@@ -262,7 +263,7 @@
         "to": "",
         "reg": false,
         "x": 240,
-        "y": 620,
+        "y": 700,
         "wires": [
             [
                 "3e0f0d4c8e5d1337"
@@ -279,7 +280,7 @@
             "6dc69ec0ea99ea75"
         ],
         "x": 395,
-        "y": 620,
+        "y": 700,
         "wires": []
     },
     {
@@ -299,7 +300,7 @@
         "name": "send response",
         "info": "",
         "x": 100,
-        "y": 840,
+        "y": 1040,
         "wires": []
     },
     {
@@ -309,7 +310,7 @@
         "name": "Exception handling",
         "info": "",
         "x": 110,
-        "y": 980,
+        "y": 1180,
         "wires": []
     },
     {
@@ -319,7 +320,7 @@
         "name": "Default response",
         "info": "",
         "x": 100,
-        "y": 560,
+        "y": 640,
         "wires": []
     },
     {
@@ -327,18 +328,18 @@
         "type": "function",
         "z": "2105e876d9da3ccd",
         "name": "getPathParams",
-        "func": "function getPathParams(path, pattern) {\n    // Crear una expresión regular para detectar los parámetros\n    const paramRegex = /\\/:([^\\/]+)/g;\n\n    // Extraer los nombres de los parámetros\n    const paramNames = [...pattern.matchAll(paramRegex)].map(match => match[1]);\n\n    // Verificar si hay nombres de parámetros duplicados\n    const hasDuplicates = paramNames.length !== new Set(paramNames).size;\n    if (hasDuplicates) {\n        throw new Error(\"Nombres de parametros repetidos en el patron\");\n    }\n\n    // Reemplazar los parámetros en el patrón por una expresión regular\n    const patternRegex = new RegExp('^' + pattern.replace(paramRegex, '/([^/]+)') + '$');\n\n    // Comprobar si el path coincide con el patrón\n    const match = path.match(patternRegex);\n    if (!match) {\n        throw new Error(\"Path y patron no coinciden en formato\");\n    }\n\n    // Crear el objeto de parámetros\n    const params = {};\n    paramNames.forEach((param, i) => {\n        params[param] = match[i + 1];\n    });\n\n    return params;\n}\n\nconst path = msg.req.url;\n//const matchedPathPattern = msg.matchedPathPattern;\nconst matchedPathPattern = \"/pets/:petId\";\n\nmsg.req.parsedParams = getPathParams(path, matchedPathPattern);\n\nreturn msg;",
+        "func": "function getPathParams(path, pattern) {\n    // Crear una expresión regular para detectar los parámetros\n    const paramRegex = /\\/:([^\\/]+)/g;\n\n    // Extraer los nombres de los parámetros\n    const paramNames = [...pattern.matchAll(paramRegex)].map(match => match[1]);\n\n    // Verificar si hay nombres de parámetros duplicados\n    const hasDuplicates = paramNames.length !== new Set(paramNames).size;\n    if (hasDuplicates) {\n        throw new Error(\"Nombres de parametros repetidos en el patron\");\n    }\n\n    // Reemplazar los parámetros en el patrón por una expresión regular\n    const patternRegex = new RegExp('^' + pattern.replace(paramRegex, '/([^/]+)') + '$');\n\n    // Comprobar si el path coincide con el patrón\n    const match = path.match(patternRegex);\n    if (!match) {\n        throw new Error(\"Path y patron no coinciden en formato\");\n    }\n\n    // Crear el objeto de parámetros\n    const params = {};\n    paramNames.forEach((param, i) => {\n        params[param] = match[i + 1];\n    });\n\n    return params;\n}\n\nconst path = msg.req.url;\nconst matchedPathPattern = msg.pattern;\n\nmsg.req.parsedParams = getPathParams(path, matchedPathPattern);\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 640,
-        "y": 500,
+        "x": 840,
+        "y": 560,
         "wires": [
             [
-                "910355357ef7182b",
-                "4979c9081d75a341"
+                "d7e905e47c8459db",
+                "c880c5f1112f1d48"
             ]
         ]
     },
@@ -348,7 +349,7 @@
         "z": "2105e876d9da3ccd",
         "name": "pre-process",
         "info": "",
-        "x": 530,
+        "x": 630,
         "y": 160,
         "wires": []
     },
@@ -359,10 +360,11 @@
         "name": "link out 4",
         "mode": "link",
         "links": [
-            "8c84bece8037e906"
+            "8c84bece8037e906",
+            "30d5d79159cb938c"
         ],
-        "x": 825,
-        "y": 500,
+        "x": 885,
+        "y": 800,
         "wires": []
     },
     {
@@ -373,12 +375,12 @@
         "links": [
             "fee9c9a538a03ca7"
         ],
-        "x": 515,
+        "x": 615,
         "y": 220,
         "wires": [
             [
                 "f238acca872c2e71",
-                "6a1b1a676070e570"
+                "1dacd25a88bb6815"
             ]
         ]
     },
@@ -391,11 +393,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "req",
-        "targetType": "msg",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 810,
+        "x": 950,
         "y": 220,
         "wires": []
     },
@@ -404,16 +406,16 @@
         "type": "debug",
         "z": "2105e876d9da3ccd",
         "name": "pre-process",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "req",
-        "targetType": "msg",
+        "complete": "true",
+        "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 790,
-        "y": 560,
+        "x": 830,
+        "y": 680,
         "wires": []
     },
     {
@@ -430,7 +432,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 300,
-        "y": 1120,
+        "y": 1320,
         "wires": []
     },
     {
@@ -438,33 +440,18 @@
         "type": "function",
         "z": "2105e876d9da3ccd",
         "name": "isPathMatchingPattern",
-        "func": "function isPathMatchingPattern(path, pattern) {\n    // Crear una expresión regular para detectar los parámetros\n    const paramRegex = /\\/:([^\\/]+)/g;\n\n    // Reemplazar los parámetros en el patrón por una expresión regular\n    const patternRegex = new RegExp('^' + pattern.replace(paramRegex, '/([^/]+)') + '$');\n\n    // Comprobar si el path coincide con el patrón\n    const match = path.match(patternRegex);\n    return match;\n}\n\nconst path = msg.req.url;\nconst matchedPathPattern = msg.matchedPathPattern;\n\nmsg.req.paramsCanBeParsed = isPathMatchingPattern(path, matchedPathPattern);\n\nreturn msg;",
+        "func": "function isPathMatchingPattern(path, pattern) {\n    // Crear una expresión regular para detectar los parámetros\n    const paramRegex = /\\/:([^\\/]+)/g;\n\n    // Reemplazar los parámetros en el patrón por una expresión regular\n    const patternRegex = new RegExp('^' + pattern.replace(paramRegex, '/([^/]+)') + '$');\n\n    // Comprobar si el path coincide con el patrón\n    const match = path.match(patternRegex);\n    return match != null;\n}\n\nconst path = msg.req.url;\nconst pattern = msg.pattern;\n\nmsg.paramsCanBeParsed = isPathMatchingPattern(path, pattern);\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 820,
-        "y": 100,
+        "x": 860,
+        "y": 440,
         "wires": [
-            []
-        ]
-    },
-    {
-        "id": "6a1b1a676070e570",
-        "type": "function",
-        "z": "2105e876d9da3ccd",
-        "name": "save msg state",
-        "func": "const previous = msg;\nvar msg = {\n    _previous: previous\n};\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 600,
-        "y": 280,
-        "wires": [
-            []
+            [
+                "f7b9836be8449c8c"
+            ]
         ]
     },
     {
@@ -476,7 +463,7 @@
         "action": "",
         "pretty": false,
         "x": 490,
-        "y": 1260,
+        "y": 1460,
         "wires": [
             [
                 "8711d1c2e6cd4f54"
@@ -496,7 +483,7 @@
         "encoding": "none",
         "allProps": false,
         "x": 320,
-        "y": 1260,
+        "y": 1460,
         "wires": [
             [
                 "d78026e65f84b4ab"
@@ -525,7 +512,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 160,
-        "y": 1260,
+        "y": 1460,
         "wires": [
             [
                 "42d74165f18bf7a9"
@@ -552,7 +539,7 @@
         "to": "",
         "reg": false,
         "x": 670,
-        "y": 1260,
+        "y": 1460,
         "wires": [
             [
                 "d280186a25c6a36e"
@@ -571,7 +558,7 @@
         ],
         "uncaught": false,
         "x": 170,
-        "y": 1320,
+        "y": 1520,
         "wires": [
             [
                 "86c4d725e2b07e6b"
@@ -592,7 +579,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 380,
-        "y": 1320,
+        "y": 1520,
         "wires": []
     },
     {
@@ -602,7 +589,7 @@
         "name": "load Http Rules",
         "info": "",
         "x": 100,
-        "y": 1200,
+        "y": 1400,
         "wires": []
     },
     {
@@ -627,7 +614,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 160,
-        "y": 1380,
+        "y": 1580,
         "wires": [
             [
                 "5ca8a36d98dc9bcf"
@@ -654,7 +641,7 @@
         "to": "",
         "reg": false,
         "x": 320,
-        "y": 1380,
+        "y": 1580,
         "wires": [
             [
                 "4ab16e5e0a8d3816"
@@ -675,7 +662,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 470,
-        "y": 1380,
+        "y": 1580,
         "wires": []
     },
     {
@@ -691,8 +678,374 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 750,
-        "y": 1320,
+        "x": 770,
+        "y": 1520,
         "wires": []
+    },
+    {
+        "id": "1dacd25a88bb6815",
+        "type": "change",
+        "z": "2105e876d9da3ccd",
+        "name": "filter rules by method",
+        "rules": [
+            {
+                "t": "set",
+                "p": "rules",
+                "pt": "msg",
+                "to": "http_rules",
+                "tot": "global"
+            },
+            {
+                "t": "set",
+                "p": "method",
+                "pt": "msg",
+                "to": "req.method",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "$lookup(rules, method)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 300,
+        "wires": [
+            [
+                "1b856a5e9c292190",
+                "2cbeda31acd0ee4f"
+            ]
+        ]
+    },
+    {
+        "id": "1b856a5e9c292190",
+        "type": "debug",
+        "z": "2105e876d9da3ccd",
+        "name": "req",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "2cbeda31acd0ee4f",
+        "type": "split",
+        "z": "2105e876d9da3ccd",
+        "name": "foreach rule",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "pattern",
+        "x": 730,
+        "y": 380,
+        "wires": [
+            [
+                "eae271d73aa6dd76",
+                "6ee6c11cc0518789"
+            ]
+        ]
+    },
+    {
+        "id": "eae271d73aa6dd76",
+        "type": "debug",
+        "z": "2105e876d9da3ccd",
+        "name": "rule",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "97ec91da3cb74822",
+        "type": "join",
+        "z": "2105e876d9da3ccd",
+        "name": "",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": "false",
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "x": 780,
+        "y": 800,
+        "wires": [
+            [
+                "910355357ef7182b"
+            ]
+        ]
+    },
+    {
+        "id": "f7b9836be8449c8c",
+        "type": "switch",
+        "z": "2105e876d9da3ccd",
+        "name": "paramsCanBeParsed?",
+        "property": "paramsCanBeParsed",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 860,
+        "y": 500,
+        "wires": [
+            [
+                "7c71fd36203bbb00",
+                "21f68644130bc4ef"
+            ],
+            [
+                "66639612e9db0bba",
+                "fb4d97c27257f35c"
+            ]
+        ]
+    },
+    {
+        "id": "d5d9aed99625290e",
+        "type": "debug",
+        "z": "2105e876d9da3ccd",
+        "name": "req",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "req",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 190,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "55811cfa2f38e68d",
+        "type": "change",
+        "z": "2105e876d9da3ccd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "404",
+                "tot": "str"
+            },
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 240,
+        "y": 920,
+        "wires": [
+            [
+                "24b6d15d5fd02ae1"
+            ]
+        ]
+    },
+    {
+        "id": "24b6d15d5fd02ae1",
+        "type": "link out",
+        "z": "2105e876d9da3ccd",
+        "name": "link out 5",
+        "mode": "link",
+        "links": [
+            "6dc69ec0ea99ea75"
+        ],
+        "x": 395,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "7740a5f6800986e6",
+        "type": "comment",
+        "z": "2105e876d9da3ccd",
+        "name": "Not Found",
+        "info": "",
+        "x": 80,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "61125ddf884368b4",
+        "type": "link in",
+        "z": "2105e876d9da3ccd",
+        "name": "link in 4",
+        "links": [
+            "44187f8078307871"
+        ],
+        "x": 65,
+        "y": 920,
+        "wires": [
+            [
+                "55811cfa2f38e68d"
+            ]
+        ]
+    },
+    {
+        "id": "44187f8078307871",
+        "type": "link out",
+        "z": "2105e876d9da3ccd",
+        "name": "link out 6",
+        "mode": "link",
+        "links": [
+            "61125ddf884368b4"
+        ],
+        "x": 1185,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "d7e905e47c8459db",
+        "type": "link out",
+        "z": "2105e876d9da3ccd",
+        "name": "link out 7",
+        "mode": "link",
+        "links": [
+            "c6b8d8a36dc05b63"
+        ],
+        "x": 995,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "c6b8d8a36dc05b63",
+        "type": "link in",
+        "z": "2105e876d9da3ccd",
+        "name": "link in 5",
+        "links": [
+            "d7e905e47c8459db",
+            "66639612e9db0bba"
+        ],
+        "x": 675,
+        "y": 800,
+        "wires": [
+            [
+                "97ec91da3cb74822"
+            ]
+        ]
+    },
+    {
+        "id": "3e4927d1388fe4d2",
+        "type": "comment",
+        "z": "2105e876d9da3ccd",
+        "name": "404",
+        "info": "",
+        "x": 1210,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "66639612e9db0bba",
+        "type": "link out",
+        "z": "2105e876d9da3ccd",
+        "name": "link out 8",
+        "mode": "link",
+        "links": [
+            "c6b8d8a36dc05b63"
+        ],
+        "x": 1055,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "21f68644130bc4ef",
+        "type": "debug",
+        "z": "2105e876d9da3ccd",
+        "name": "can be parsed",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1180,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "fb4d97c27257f35c",
+        "type": "debug",
+        "z": "2105e876d9da3ccd",
+        "name": "can't be parsed",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1180,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "c880c5f1112f1d48",
+        "type": "change",
+        "z": "2105e876d9da3ccd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "req.action",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 620,
+        "wires": [
+            [
+                "4979c9081d75a341"
+            ]
+        ]
     }
 ]
